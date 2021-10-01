@@ -12,6 +12,10 @@ GitHub API 限制单 IP，单令牌，一小时 5000 次请求。
 
 ## 使用
 
+1. 复制代码 ([`dist/main.js`](https://github.com/yfun-lab/gh-worker-kv/blob/master/dist/main.js)
+2. 将代码粘贴至您的 Cloudflare Workers 代码中。
+3. 使用下方的代码初始化：
+
 ```js
 var db = new ghKV({
     username: "",
@@ -20,13 +24,7 @@ var db = new ghKV({
     filename: "",
     branch: "",
 });
-
-db.set("cloudflare", "workers"); // true
-db.get("cloudflare"); // "workers"
-db.delete("cloudflare"); // true
-db.get("cloudflare"); // undefinded
 ```
-
 配置说明：
 
 |   配置名   |             说明              |
@@ -36,3 +34,14 @@ db.get("cloudflare"); // undefinded
 |  `token`   | GitHub 令牌，要求有仓库的权限 |
 | `filename` |          JSON 文件名          |
 |  `branch`  |         Git 仓库分支          |
+
+4. 使用下方的代码进行操作：
+
+```
+db.set("cloudflare", "workers"); // true
+db.get("cloudflare"); // "workers"
+db.delete("cloudflare"); // true
+db.get("cloudflare"); // undefinded
+```
+
+
