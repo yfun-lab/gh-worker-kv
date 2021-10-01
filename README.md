@@ -1,6 +1,4 @@
-# Cloudflare Workers GitHub KV
-
-> 此版本的 gh-worker-kv 还没有经过 Cloudflare Workers 测试，不能确定可以正常使用。
+# gh-worker-kv
 
 > 将 GitHub 仓库内的 JSON 文件作为 KV 数据库。
 
@@ -14,53 +12,31 @@
 GitHub API 限制单 IP，单令牌，一小时 5000 次请求。
 
 
-## 已知的问题
-
-- ~~ 有缓存: 目前存在疑问，待解决。~~
-
 
 ## 使用
 
-> gh-worker-kv 仍在开发中，此处的说明将很有可能过时。
 
 ```js
-async function () {
-    // Set
-    await ghKV.set("name", "CKY"); // true
-    // Get
-    await ghKV.get("name"); // "CKY"
-    // Delete
-    await ghKV.delete("name"); // true
-}
-```
-
-更改配置：
-
-```js
-const ghKV = {
-    username: "<USER NAME>",
-    repo: "<REPO NAME>",
-    token: "<TOKEN>",
-    filename: "/config.json",
-    branch: "master",
-    source: "raw",
-    // ...
-}
-```
-
-## 在未来
-
-gh-worker-kv 还处在开发状态，在未来，将会这样初始化。
-
-```js
-const kv = new ghKV({
+var db = new ghKV({
     username: "",
-    // ...
+    repo: "",
+    token: "",
+    filename: "",
+    branch: "",
 });
 
-kv.set();
-kv.get();
-kv.delete();
+db.set("cloudflare", "workers"); // true
+db.get("cloudflare"); // "workers"
+db.delete("cloudflare"); // true
+db.get("cloudflare"); // undefinded
 ```
 
-这样子可以在单项目中载入多个 ghKV 数据库。
+配置说明：
+
+| 配置名  | 说明  |
+| :-:   | :-:  |
+| `username` | 用户名 |
+| `repo` | 仓库名 |
+| `token` | GitHub 令牌，要求有仓库的权限 |
+| `filename` | JSON 文件名 |
+| `branch` | Git 仓库分支 |
