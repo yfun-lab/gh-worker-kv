@@ -25,6 +25,7 @@ var db = new ghKV({
     branch: "",
 });
 ```
+
 配置说明：
 
 |   配置名   |             说明              |
@@ -43,5 +44,3 @@ db.get("cloudflare"); // "workers"
 db.delete("cloudflare"); // true
 db.get("cloudflare"); // undefinded
 ```
-
-
