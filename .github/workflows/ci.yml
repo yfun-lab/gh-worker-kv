@@ -36,9 +36,10 @@ jobs:
         run: |
           git config --global user.email "icolabot@e.yfun.top"
           git config --global user.name "iColaBot"
-          # npm i prettier -g
-          # prettier --write .
+          npm i prettier -g
+          prettier --write .
           npm i --save
+          rm -r dist/main.js
           npm run build
           git add .
           git commit -m ":zap: Build Successly!"
