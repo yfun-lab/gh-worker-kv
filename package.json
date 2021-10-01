@@ -1,0 +1,17 @@
+{
+    "name": "gh-worker-kv",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "cd pack && node index && cd ../"
+    },
+    "type": "module",
+    "devDependencies": {
+        "webpack": "^5.55.0",
+        "webpack-cli": "^4.8.0"
+    },
+    "dependencies": {
+        "js-base64": "^3.7.2",
+        "node-fetch": "^3.0.0",
+        "uglify-js": "^3.14.2"
+    }
+}
