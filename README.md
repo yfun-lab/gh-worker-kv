@@ -38,7 +38,7 @@ var db = new ghKV({
 
 4. 使用下方的代码进行操作：
 
-```
+```js
 db.set("cloudflare", "workers"); // true
 db.get("cloudflare"); // "workers"
 db.delete("cloudflare"); // true
