@@ -2,29 +2,29 @@
  * 打包程序
  */
 
-import fetch from 'node-fetch';
-import fs from 'fs';
-import UglifyJS from 'uglify-js';
+import fetch from "node-fetch";
+import fs from "fs";
+import UglifyJS from "uglify-js";
 
 var reslist = [];
-const getFile = async(list) => {
+const getFile = async (list) => {
     var reslist = [];
     for (let i = 0; i < list.length; i++) {
         let url = list[i];
         let re = await fetch(list[i], {
-            method: "GET"
+            method: "GET",
         });
         let res = await re.text();
         reslist.push(res);
     }
     return reslist;
-}
+};
 console.log(1);
-const run = async() => {
+const run = async () => {
     let list = ["https://cdn.jsdelivr.net/npm/js-base64@3.7.1/base64.min.js"];
     let l = await getFile(list);
 
-    let file = fs.readFileSync("../index.js", 'utf-8');
+    let file = fs.readFileSync("../index.js", "utf-8");
 
     var code = "";
     for (let i = 0; i < l.length; i++) {
@@ -41,6 +41,5 @@ const run = async() => {
     // }
 
     fs.writeFileSync("../dist/main.js", code);
-
-}
+};
 run();
