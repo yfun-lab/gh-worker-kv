@@ -12,7 +12,7 @@ GitHub API 限制单 IP，单令牌，一小时 5000 次请求。
 
 ## 使用
 
-1. 复制代码 ([`dist/main.js`](https://github.com/yfun-lab/gh-worker-kv/blob/master/dist/main.js)
+1. 复制代码 ([`dist/main.js`](https://github.com/yfun-lab/gh-worker-kv/blob/master/dist/main.js))
 2. 将代码粘贴至您的 Cloudflare Workers 代码中。
 3. 使用下方的代码初始化：
 
