@@ -42,7 +42,7 @@ jobs:
           rm -r dist/main.js
           npm run build
           git add .
-          git commit -m ":zap: Build Successly!"
+          git commit -m ":zap: Build Successfully!"
           
       - name: Push
         run: |
