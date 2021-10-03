@@ -103,7 +103,7 @@ ghKV.prototype.set = async function (key, value) {
     let cfg = {
         body: JSON.stringify({
             branch: this.branch,
-            message: "Upload Database by this.",
+            message: "Upload Database by ghKV.",
             content: Base64.encode(dbContent),
             sha: dbsha,
         }),
