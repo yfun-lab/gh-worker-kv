@@ -1,7 +1,7 @@
 # gh-worker-kv
 
 > 将 GitHub 仓库内的 JSON 文件作为 KV 数据库。
-> 
+>
 > **当前遇到的问题：Cloudflare Workers 缓存结果导致数据更新不及时。**
 
 优点：解决 Cloudflare KV 免费版每日 1000 次的限制。
