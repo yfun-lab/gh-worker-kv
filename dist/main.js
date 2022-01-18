@@ -57,9 +57,13 @@ ghKV.prototype.get = async function (key) {
         },
     });
     // 对 JSON 文件进行处理
-    let dtb = await value.json();
-    // 返回值
-    return dtb[key];
+    let dtb = await value.text();
+    let dtb = JSON.parse(dtb);
+    if (key == true) {
+        return dtb;
+    } else {
+        return dtb[key];
+    }
 };
 
 /**
