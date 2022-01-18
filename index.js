@@ -81,18 +81,7 @@ ghKV.prototype.set = async function (key, value) {
     let fileJSON = await fileAPI.json();
     let dbsha = fileJSON["sha"];
     // 生成一个随机数，防止缓存
-    let getDBurl = encodeURI(
-        `https://raw.githubusercontent.com/${this.username}/${this.repo}/${
-            this.branch
-        }${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
-    );
-    let getDB = await fetch(getDBurl, {
-        headers: {
-            Accept: "application/vnd.github.v3.raw",
-            Authorization: `token ${this.token}`,
-        },
-    });
-    var dbContent = JSON.parse(await getDB.text());
+    var dbContent = await ghKV.get(true);
     dbContent[key] = value;
     dbContent = JSON.stringify(dbContent);
     // 推送配置信息
@@ -146,18 +135,7 @@ ghKV.prototype.delete = async function (key) {
     // 获取文件 sha 值
     let fileJSON = await fileAPI.json();
     let dbsha = fileJSON["sha"];
-    let getDBurl = encodeURI(
-        `https://raw.githubusercontent.com/${this.username}/${this.repo}/${
-            this.branch
-        }${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
-    );
-    let getDB = await fetch(getDBurl, {
-        headers: {
-            Accept: "application/vnd.github.v3.raw",
-            Authorization: `token ${this.token}`,
-        },
-    });
-    var dbContent = JSON.parse(await getDB.text());
+    var dbContent = await ghKV.get(true);
     delete dbContent[key];
     dbContent = JSON.stringify(dbContent);
     // 请求配置
