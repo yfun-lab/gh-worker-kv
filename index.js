@@ -48,7 +48,7 @@ ghKV.prototype.get = async function (key) {
         headers: {
             Accept: "application/vnd.github.v3.raw",
             Authorization: `token ${this.token}`,
-            "User-Agent": "ghKV Clinet"
+            "User-Agent": "ghKV Clinet",
         },
     });
     let shaValue = await shavl.text();
@@ -57,7 +57,9 @@ ghKV.prototype.get = async function (key) {
     let url = encodeURI(
         `https://raw.githubusercontent.com/${this.username}/${
             this.repo
-        }/${shaValue}${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
+        }/${shaValue}${this.filename}?dt=${Math.floor(
+            Math.random() * 100000000
+        )}`
     );
     let value = await fetch(url, {
         headers: {

@@ -56,13 +56,18 @@ ghKV.prototype.get = async function (key) {
         headers: {
             Accept: "application/vnd.github.v3.raw",
             Authorization: `token ${this.token}`,
+            "User-Agent": "ghKV Clinet",
         },
     });
+    let shaValue = await shavl.text();
+    shaValue = JSON.parse(shaValue)[0].sha;
     // 拼接为获取文件的链接
     let url = encodeURI(
         `https://raw.githubusercontent.com/${this.username}/${
             this.repo
-        }/${shavl}${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
+        }/${shaValue}${this.filename}?dt=${Math.floor(
+            Math.random() * 100000000
+        )}`
     );
     let value = await fetch(url, {
         headers: {
@@ -72,7 +77,7 @@ ghKV.prototype.get = async function (key) {
     });
     // 对 JSON 文件进行处理
     let dtb = await value.text();
-    let dtb = JSON.parse(dtb);
+    dtb = JSON.parse(dtb);
     if (key == true) {
         return dtb;
     } else {
@@ -103,7 +108,7 @@ ghKV.prototype.set = async function (key, value) {
     let fileJSON = await fileAPI.json();
     let dbsha = fileJSON["sha"];
     // 直接由 get(true) 接管
-    var dbContent = await ghKV.get(true);
+    var dbContent = await this.get(true);
     dbContent[key] = value;
     dbContent = JSON.stringify(dbContent);
     // 推送配置信息
@@ -157,7 +162,7 @@ ghKV.prototype.delete = async function (key) {
     // 获取文件 sha 值
     let fileJSON = await fileAPI.json();
     let dbsha = fileJSON["sha"];
-    var dbContent = await ghKV.get(true);
+    var dbContent = await this.get(true);
     delete dbContent[key];
     dbContent = JSON.stringify(dbContent);
     // 请求配置
