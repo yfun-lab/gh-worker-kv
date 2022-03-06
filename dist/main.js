@@ -52,7 +52,7 @@ ghKV.prototype.get = async function (key) {
             Math.random() * 100000000
         )}`
     );
-    let shavl = await fetch(url, {
+    let shavl = await fetch(shaurl, {
         headers: {
             Accept: "application/vnd.github.v3.raw",
             Authorization: `token ${this.token}`,
