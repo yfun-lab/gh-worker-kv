@@ -38,9 +38,11 @@ ghKV.prototype.get = async function (key) {
     }
     // 在获取文件前先获得 Commit SHA.
     let shaurl = encodeURI(
-        `https://api.github.com/repos/${this.username}/${this.repo}/commits?sha=${
-            this.branch
-        }&dt=${Math.floor(Math.random() * 100000000)}`
+        `https://api.github.com/repos/${this.username}/${
+            this.repo
+        }/commits?sha=${this.branch}&dt=${Math.floor(
+            Math.random() * 100000000
+        )}`
     );
     let shavl = await fetch(url, {
         headers: {
@@ -50,9 +52,9 @@ ghKV.prototype.get = async function (key) {
     });
     // 拼接为获取文件的链接
     let url = encodeURI(
-        `https://raw.githubusercontent.com/${this.username}/${this.repo}/${
-            shavl
-        }${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
+        `https://raw.githubusercontent.com/${this.username}/${
+            this.repo
+        }/${shavl}${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
     );
     let value = await fetch(url, {
         headers: {

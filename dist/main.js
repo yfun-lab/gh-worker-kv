@@ -44,11 +44,25 @@ ghKV.prototype.get = async function (key) {
         console.error("[Error] Please Check the key.");
         return false;
     }
+    // 在获取文件前先获得 Commit SHA.
+    let shaurl = encodeURI(
+        `https://api.github.com/repos/${this.username}/${
+            this.repo
+        }/commits?sha=${this.branch}&dt=${Math.floor(
+            Math.random() * 100000000
+        )}`
+    );
+    let shavl = await fetch(url, {
+        headers: {
+            Accept: "application/vnd.github.v3.raw",
+            Authorization: `token ${this.token}`,
+        },
+    });
     // 拼接为获取文件的链接
     let url = encodeURI(
-        `https://raw.githubusercontent.com/${this.username}/${this.repo}/${
-            this.branch
-        }${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
+        `https://raw.githubusercontent.com/${this.username}/${
+            this.repo
+        }/${shavl}${this.filename}?dt=${Math.floor(Math.random() * 100000000)}`
     );
     let value = await fetch(url, {
         headers: {
@@ -88,7 +102,7 @@ ghKV.prototype.set = async function (key, value) {
     // 得到文件 sha 值
     let fileJSON = await fileAPI.json();
     let dbsha = fileJSON["sha"];
-    // 生成一个随机数，防止缓存
+    // 直接由 get(true) 接管
     var dbContent = await ghKV.get(true);
     dbContent[key] = value;
     dbContent = JSON.stringify(dbContent);
