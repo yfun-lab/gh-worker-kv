@@ -40,6 +40,6 @@ const run = async () => {
         console.log(result.error);
     }
 
-    fs.writeFileSync("../dist/main.js", result);
+    fs.writeFileSync("../dist/main.js", result.code);
 };
 run();
