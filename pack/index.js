@@ -21,15 +21,15 @@ var reslist = [];
 // };
 // console.log(1);
 const run = async () => {
-//     let list = ["https://cdn.jsdelivr.net/npm/js-base64@3.7.1/base64.min.js"];
-//     let l = await getFile(list);
+    //     let list = ["https://cdn.jsdelivr.net/npm/js-base64@3.7.1/base64.min.js"];
+    //     let l = await getFile(list);
     let b64code = fs.readFileSync("./base64.js", "utf-8");
     let file = fs.readFileSync("../index.js", "utf-8");
 
     var code = "";
-//     for (let i = 0; i < l.length; i++) {
-//         code = code + l[i];
-//     }
+    //     for (let i = 0; i < l.length; i++) {
+    //         code = code + l[i];
+    //     }
     code = b64code + "\n" + file;
     // console.log(code);
     var result = UglifyJS.minify(code);
