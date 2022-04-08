@@ -107,7 +107,7 @@ ghKV.prototype.set = async function (key, value, all) {
         dbContent = await this.get(true);
         dbContent[key] = value;
     }
-    
+
     dbContent = JSON.stringify(dbContent);
     // 推送配置信息
     let cfg = {
