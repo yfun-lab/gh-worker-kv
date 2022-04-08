@@ -83,7 +83,7 @@ ghKV.prototype.get = async function (key) {
  * @param {string} value 值
  * @returns {boolean} 状态
  */
-ghKV.prototype.set = async function (key, value) {
+ghKV.prototype.set = async function (key, value, all) {
     // 获取文件信息
     let fileAPI = await fetch(
         `https://api.github.com/repos/${this.username}/${this.repo}/contents/${this.filename}?ref=${this.branch}`,
@@ -99,9 +99,15 @@ ghKV.prototype.set = async function (key, value) {
     // 得到文件 sha 值
     let fileJSON = await fileAPI.json();
     let dbsha = fileJSON["sha"];
-    // 直接由 get(true) 接管
-    var dbContent = await this.get(true);
-    dbContent[key] = value;
+    // 优化性能, 直接由 get(true) 接管
+    var dbContent;
+    if (all == true) {
+        dbContent = value;
+    } else {
+        dbContent = await this.get(true);
+        dbContent[key] = value;
+    }
+    
     dbContent = JSON.stringify(dbContent);
     // 推送配置信息
     let cfg = {
